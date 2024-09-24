@@ -1,4 +1,4 @@
-## SEO Checker Extension Documentation
+## Rankpulse Documentation
 
 This extension provides tools to help digital marketers, SEO professionals, and webmasters check and analyze SEO metrics while previewing Search Engine Results Pages (SERPs).
 
