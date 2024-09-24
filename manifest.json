@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+
+  "name": "Rank Pulse",
+  "version": "1.0",
+  "description": "Rank Pulse is a powerful Chrome extension designed to help digital marketers, SEO professionals, and webmasters check and analyze SEO metrics while previewing (SERPs).",
+  "icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+  },
+  "action": {
+    "default_popup": "src/popup/popup.html",
+    "default_icon": "images/icon128.png"
+  },
+  "host_permissions": ["<all_urls>"],
+  "permissions": ["activeTab", "scripting", "tabs"],
+  "background": {
+    "service_worker": "src/background/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/content/content.js"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/popup/popup.js",
+        "src/popup/popup-loader.js",
+        "web-vitals.js"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; frame-src 'self'"
+  }
+}

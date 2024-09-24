@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="web-vitals-wrapper.js" type="module"></script>
+    <script src="web-vitals.js"></script>
+
+    <title>SEO Checker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="tabs">
+      <button class="tab active" data-tab="seoChecker">SEO Checker</button>
+      <button class="tab" data-tab="status">
+        Status
+        <div id="statusIndicator" class="status-indicator"></div>
+      </button>
+      <button class="tab" data-tab="links">Links</button>
+      <button class="tab" data-tab="headings">Headings</button>
+      <button class="tab" data-tab="images">Images</button>
+      <button class="tab" data-tab="serpPreview">SERP Preview</button>
+    </div>
+
+    <div id="seoChecker" class="tab-content active">
+      <div class="grid">
+        <div class="grid-item">
+          <div class="label">Headline</div>
+          <div class="value" id="seoHeadlineChars"></div>
+        </div>
+        <div class="grid-item" id="seoHeadlineContent"></div>
+
+        <div class="grid-item">
+          <div class="label">Description</div>
+          <div class="value" id="seoDescriptionChars"></div>
+        </div>
+        <div class="grid-item" id="seoDescriptionContent"></div>
+
+        <div class="grid-item">
+          <div class="label">URL</div>
+        </div>
+        <div class="grid-item" id="urlContent"></div>
+
+        <div class="grid-item">
+          <div class="label">Canonical</div>
+        </div>
+        <div class="grid-item" id="canonicalContent"></div>
+
+        <div class="grid-item">
+          <div class="label">Web Vitals</div>
+        </div>
+        <div class="grid-item" id="webVitals">
+          <div><span>LCP: </span><span id="lcpValue">-</span></div>
+          <div><span>INP: </span><span id="inpValue">-</span></div>
+          <div><span>CLS: </span><span id="clsValue">-</span></div>
+        </div>
+        <div class="grid-item">
+          <div class="label">Word Count</div>
+        </div>
+        <div class="grid-item button-container">
+          <span id="wordCount"></span>
+          <button id="exportPageContent" class="export-button">
+            Export Page Content
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="status" class="tab-content">
+      <div class="status-table">
+        <div class="status-row">
+          <div class="status-cell" id="statusCode"></div>
+        </div>
+        <div class="status-row">
+          <div class="status-cell" id="statusUrl"></div>
+        </div>
+      </div>
+    </div>
+    <div id="links" class="tab-content">
+      <div id="linksSummary" class="links-summary"></div>
+      <div class="link-controls">
+        <div class="radio-group">
+          <label
+            ><input type="radio" name="linkType" value="all" checked /> All
+          </label>
+          <label
+            ><input type="radio" name="linkType" value="internal" /> Internal
+          </label>
+          <label
+            ><input type="radio" name="linkType" value="external" /> External
+          </label>
+          <label
+            ><input type="radio" name="linkType" value="dofollow" /> Do-Follow
+          </label>
+          <label
+            ><input type="radio" name="linkType" value="nofollow" /> No-Follow
+          </label>
+        </div>
+        <button id="highlightLinks" class="highlight-button">
+          Highlight Links
+        </button>
+      </div>
+      <div class="link-toggles">
+        <div class="link-toggle">
+          <button class="toggle-button" data-target="internalLinks">
+            Internal Links
+          </button>
+          <div id="internalLinks" class="toggle-content">
+            <ul class="link-list"></ul>
+          </div>
+        </div>
+        <div class="link-toggle">
+          <button class="toggle-button" data-target="externalLinks">
+            External Links
+          </button>
+          <div id="externalLinks" class="toggle-content">
+            <ul class="link-list"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="headings" class="tab-content">
+      <div id="headingsSummary" class="headings-summary"></div>
+      <div id="h2h3List" class="h2h3-list"></div>
+      <button id="exportHeadings" class="export-button">Export Headings</button>
+    </div>
+
+    <div id="images" class="tab-content">
+      <div id="imagesSummary" class="images-summary"></div>
+      <div class="images-container">
+        <div id="imagesList" class="images-list"></div>
+      </div>
+    </div>
+    <div id="serpPreview" class="tab-content">
+      <div class="serp-inputs">
+        <div class="input-group">
+          <label for="searchQuery">Search Query</label>
+          <input
+            type="text"
+            id="searchQuery"
+            placeholder="Enter Your Target Keyword..."
+          />
+        </div>
+        <div class="input-group">
+          <label for="serpTitle"
+            >Title (<span id="serpTitleChars">0</span>/60 chars) (<span
+              id="serpTitlePx"
+              >0</span
+            >/524px)</label
+          >
+          <input type="text" id="serpTitle" placeholder="Enter Your Title..." />
+        </div>
+        <div class="input-group">
+          <label for="serpDescription"
+            >Description (<span id="serpDescriptionChars">0</span>/150
+            chars)</label
+          >
+          <input
+            type="text"
+            id="serpDescription"
+            placeholder="Enter Your Description..."
+          />
+        </div>
+        <div class="input-group">
+          <label for="serpUrl">URL</label>
+          <input type="text" id="serpUrl" placeholder="" />
+        </div>
+        <div class="input-group">
+          <label for="serpDate">Date (optional)</label>
+          <input type="text" id="serpDate" />
+        </div>
+        <div class="input-group">
+          <label for="serpRichSnippet">Rich Snippet Text (optional)</label>
+          <input type="text" id="serpRichSnippet" />
+        </div>
+      </div>
+      <button id="previewSerp" class="preview-button">Preview SERP</button>
+    </div>
+    <!-- <script src="popup-loader.js" type="module"></script> -->
+    <script src="popup.js" defer type="module"></script>
+  </body>
+</html>
